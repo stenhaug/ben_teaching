@@ -10,6 +10,10 @@ library(stringr)
 library(modelr)
 ```
 
+# Instructions
+
+You'll submit your output file and a syntax file (if you choose to use one). You will also submit a word or google doc file where you answer the open questions and include any key output you use to answer the questions such as graphs etc.
+
 # Background
 
 The principal of Warren Early College High School, Dr. Baker, experimented with three different class sizes this past year: small, medium, and large. She is interested in if class size seems to have an effect on math and reading test scores. [The dataset scores](https://drive.google.com/open?id=0BxNjWD0-A_iaNHNPeDdnaHgwcWs) includes information on the student, the class size they were in, and their math and reading scores. The scores are reported as standard scores which at the population level have a mean of 100 and a standard deviation of 15 (similar to popular IQ tests).

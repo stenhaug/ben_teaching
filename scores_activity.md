@@ -1,6 +1,11 @@
 scores\_activity
 ================
 
+Instructions
+============
+
+You'll submit your output file and a syntax file (if you choose to use one). You will also submit a word or google doc file where you answer the open questions and include any key output you use to answer the questions such as graphs etc.
+
 Background
 ==========
 
