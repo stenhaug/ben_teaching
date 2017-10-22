@@ -12,7 +12,7 @@ library(modelr)
 
 # Instructions
 
-You'll submit your output file and a syntax file (if you choose to use one). You will also submit a word or google doc file where you answer the open questions and include any key output you use to answer the questions such as graphs etc.
+You'll submit your do file and a word or google doc file where you answer the open questions and include any key output you use to answer the questions such as graphs etc.
 
 # Background
 
@@ -68,12 +68,6 @@ scores %>%
 ```
 
 # Math
-
-1. Run a t-test to compare the small clase size math scores to the large class sizes math scores. What can you conclude?
-
-```{r}
-t.test(math ~ class_size, var.equal = TRUE, data = scores %>% filter(class_size != "medium"))
-```
 
 1. Run an anova to see if math scores vary by class size. What can you conclude?
 
