@@ -70,4 +70,4 @@ Time to make a decision. It costs the school 4k a year to have a kid in a small 
 Challenge
 =========
 
-So I actually prefer R because I find it to be more powerful and easier to use once you get over the intial learning curve. I created and solved much of the activity in [R here](https://github.com/stenhaug/ben_teaching/blob/master/scores_activity_solutions.md). Take a look at the code. What can you make of it? What parts seem easier and what parts seem more confusing than spss?
+So I actually prefer R because I find it to be more powerful and easier to use once you get over the intial learning curve. I created and solved much of the activity in [R here](https://github.com/stenhaug/ben_teaching/blob/master/scores_activity_solutions.md). Take a look at the code. What can you make of it? What parts seem easier and what parts seem more confusing than stata?
