@@ -6,6 +6,8 @@ Instructions
 
 You'll submit your output file and a syntax file (if you choose to use one). You will also submit a word or google doc file where you answer the open questions and include any key output you use to answer the questions such as graphs etc.
 
+Some of this is pretty tricky! I encourage you to google it and flounder and do your best but also don't be afraid to use this [hints and help doc](https://docs.google.com/document/d/1_8ZsVw3JLIVnM8w-9dijhuEGp7VnhuKd7hhK2_I2ru8/edit).
+
 Background
 ==========
 
