@@ -26,7 +26,7 @@ One thing you'll notice is that both household income and test scores are not st
 2. Make a math_test_score and a reading_test_score column and store a number in there (this will make the dataset half as long)... Note this is tricky! Here are some steps that might help:
 
 - Convert the current test_score column into two separate columns: test_name (reading for example) test_score_numeric (102 for example)
-- Reshape the data 
+- Reshape the data  
 
 ```{r}
 scores <- scores %>% 

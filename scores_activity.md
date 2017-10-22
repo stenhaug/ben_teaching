@@ -17,7 +17,10 @@ Cleaning
 One thing you'll notice is that both household income and test scores are not stored as numbers. Start by finding a way to clean the data. In particular:
 
 1.  Remove the k from household\_income to get just the number
-2.  Make a math\_test\_score and a reading\_test\_score column and store a number in there (this will make the dataset half as long)
+2.  Make a math\_test\_score and a reading\_test\_score column and store a number in there (this will make the dataset half as long)... Note this is tricky! Here are some steps that might help:
+
+-   Convert the current test\_score column into two separate columns: test\_name (reading for example) test\_score\_numeric (102 for example)
+-   Reshape the data
 
 Explore generally
 =================
