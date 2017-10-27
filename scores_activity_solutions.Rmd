@@ -13,28 +13,30 @@ library(modelr)
 # Create the data
 
 ```{r}
-n_small <- 80
-n_medium <- 160
-n_large <- 240
-n_total <- n_small + n_medium + n_large
+# n_small <- 80
+# n_medium <- 160
+# n_large <- 240
+# n_total <- n_small + n_medium + n_large
+# 
+# math <- data_frame(student_id = sample(n_total),
+#            class_size = c(rep("small", n_small), rep("medium", n_medium), rep("large", n_large)),
+#            household_income = c(rnorm(n_small, mean = 70, sd = 15), rnorm(n_medium, mean = 50, sd = 10), rnorm(n_large, mean = 30, sd = 5)) %>% round(),
+#            gender = sample(c("male", "female"), replace = TRUE, size = n_total),
+#            test_score = paste0("math_ss_", 
+#                                round(c(rnorm(n_small, mean = 105, sd = 15), rnorm(n_medium, mean = 100, sd = 15), rnorm(n_large, mean = 95, sd = 15)) + 
+#                                  household_income / 5 + rnorm(n_total)))) %>% 
+#              mutate(household_income = paste0(household_income, "k"))
+# 
+# english <- math %>% 
+#   mutate(test_score = paste0("reading_ss_", round((rnorm(n_total, mean = 100, sd = 15)))))
+# 
+# scores <- bind_rows(math, english) %>% 
+#   sample_frac()
+#   # mutate(test_score = ifelse(row_number() %in% sample(1:360, size = 15), NA, test_score))
+# 
+# scores %>% write_csv("scores.csv")
 
-math <- data_frame(student_id = sample(n_total),
-           class_size = c(rep("small", n_small), rep("medium", n_medium), rep("large", n_large)),
-           household_income = c(rnorm(n_small, mean = 70, sd = 15), rnorm(n_medium, mean = 50, sd = 10), rnorm(n_large, mean = 30, sd = 5)) %>% round(),
-           gender = sample(c("male", "female"), replace = TRUE, size = n_total),
-           test_score = paste0("math_ss_", 
-                               round(c(rnorm(n_small, mean = 105, sd = 15), rnorm(n_medium, mean = 100, sd = 15), rnorm(n_large, mean = 95, sd = 15)) + 
-                                 household_income / 5 + rnorm(n_total)))) %>% 
-             mutate(household_income = paste0(household_income, "k"))
-
-english <- math %>% 
-  mutate(test_score = paste0("reading_ss_", round((rnorm(n_total, mean = 100, sd = 15)))))
-
-scores <- bind_rows(math, english) %>% 
-  sample_frac()
-  # mutate(test_score = ifelse(row_number() %in% sample(1:360, size = 15), NA, test_score))
-
-scores %>% write_csv("scores.csv")
+scores <- read_csv("/Users/benstenhaug/Google Drive/Stanford/Stanford Teaching/Data/scores.csv")
 ```
 
 # Background
@@ -54,6 +56,8 @@ scores <- scores %>%
          test_name = test_score %>% str_extract("[:alpha:]+"),
          test_score = test_score %>% str_extract("\\d+") %>% as.numeric()) %>% 
   spread(key = test_name, value = test_score)
+
+scores
 ```
 
 # Explore generally
@@ -91,11 +95,15 @@ scores %>%
 
 Run a t-test to compare the small clase size math scores to the large class sizes math scores. What can you conclude?
 
+- The t-test tells us that the means of these two groups are statistically different.
+
 ```{r}
 t.test(math ~ class_size, var.equal = TRUE, data = scores %>% filter(class_size != "medium"))
 ```
 
 Run an anova to see if math scores vary by class size. What can you conclude?
+
+- The anova (analysis of variance) tells us that the means of these three groups are not the same. For exactly, the following is false: mean_small == mean_medium == mean_large.
 
 ```{r}
 summary(aov(math~class_size, data = scores))
@@ -103,32 +111,40 @@ summary(aov(math~class_size, data = scores))
 
 Run a regression with y = math and x = class_size. How does this compare to the anova?
 
+- This gives us the exact same p-value. It also provides us additional information. The intercept is the mean of the large class. The estimate for class size medium is the increase in test scores for medium classes and so on.
+
 ```{r}
-mod <- lm(math ~ class_size, data = scores)
-summary(mod)
+mod_math <- lm(math ~ class_size, data = scores)
+summary(mod_math)
 ```
 
 Now add in household_income as an independent variable into the regression. What changes? What can you conclude?
 
+- This is very important! Remember that household income was greater for students in small classes. We see here that higher household income looks to associate with better test scores. By adding it into the regression model, we control for household income. This reduces the effect of medium class size for example (from 11.1 to 8.6) but it is still significantly greater than 0.
+
 ```{r}
-mod <- lm(math ~ class_size + household_income, data = scores)
-summary(mod)
+mod_math <- lm(math ~ class_size + household_income, data = scores)
+summary(mod_math)
 ```
 
 Add in gender as well. What can you conclude?
 
+- Gender doesn't seem to be associated with test score so including it in the model doesns't have much of an impact.
+
 ```{r}
 mod_math <- lm(math ~ class_size + household_income + gender, data = scores)
-summary(mod)
+summary(mod_math)
 ```
 
 # Reading
 
 Run a regression to determine the effect of class size on reading. What do you find? How does it compare to math?
 
+- There is significantly less effect if any of class size on reading scores. Interesting to think about why this might be.
+
 ```{r}
 mod_reading <- lm(reading ~ class_size + household_income + gender, data = scores)
-summary(mod)
+summary(mod_reading)
 ```
 
 # Prediction
@@ -163,3 +179,5 @@ data_to_predict %>%
 # Suggestion
 
 Time to make a decision. It costs the school 4k a year to have a kid in a small class size for the year, 3k a year for a medium class size, and 2k a year for a large class size. What size classes would you suggest the school uses for their students. Why? Be sure to consider other uses of school funds. 
+
+- This is a really interesting question. It all depends on what you estimate a 10 point increase in math test scores to be worth economically in the long-term which seems very difficult to estimate. Also depends on what other interventions instead of changing class size that one might help math scores.
