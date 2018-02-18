@@ -1,6 +1,15 @@
 simulation\_recovering\_item\_difficulties
 ================
 
+Background
+==========
+
+A simulation to figure out how many students are needed in order to recover item difficulties from the Rasch item response theory model.
+
+We will use the tidyverse to keep all parameters, responses data, and estimates in a single data frame.
+
+Part 1 sets up the simulation and generates responses data (varying numbers of students responding to 50 items with 0 = incorrect and 1 = correct). Part 2 fits the Rasch model and extracts the item difficulties. Part 3 visualizes the results.
+
 ``` r
 library(tidyverse)
 ```
@@ -27,15 +36,6 @@ library(mirt)
 ``` r
 set.seed(1)
 ```
-
-Background
-==========
-
-A simulation to figure out how many students are needed in order to recover item difficulties from the Rasch item response theory model.
-
-We will use the tidyverse to keep all parameters, responses data, and estimates in a single data frame.
-
-Part 1 sets up the simulation and generates responses data (varying numbers of students responding to 50 items with 0 = incorrect and 1 = correct). Part 2 fits the Rasch model and extracts the item difficulties. Part 3 visualizes the results.
 
 Part 1: Generating response data
 ================================
@@ -123,7 +123,7 @@ estimate_item_difficulties <- function(responses){
   irt_model <- mirt(data = responses, model = 1, itemtype = "Rasch", verbose = FALSE)
   
   coef(irt_model)[1:n_items] %>% 
-    map_dbl(~ .[1, 2])
+    map_dbl(~ .[1, 2]) # a bit dangerous: estimated item difficulties are 2nd value
 }
 
 # apply that function
