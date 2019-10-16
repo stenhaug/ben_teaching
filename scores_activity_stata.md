@@ -1,5 +1,4 @@
-scores\_activity
-================
+Updated 10/26/2019
 
 Instructions
 ============
