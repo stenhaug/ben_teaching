@@ -3,7 +3,7 @@ Updated 1/19/2020
 Instructions
 ============
 
-You'll submit your do file and a word or google doc file where you answer the open questions and include any key output you use to answer the questions such as graphs etc.
+As usual, you'll submit your do file and respond to questions as comments in the do file. If you'd like to submit a do file and a word/google document that works too.
 
 Background
 ==========
